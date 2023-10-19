@@ -6,7 +6,9 @@ import '~/styles/global.css'
 export default function MyApp({ Component, pageProps }: AppProps) {
     return (
         <NextUIProvider>
-            <Component {...pageProps} />
+            <div className="light text-foreground bg-background">
+                <Component {...pageProps} />
+            </div>
         </NextUIProvider>
     )
 }
