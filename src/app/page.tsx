@@ -1,6 +1,6 @@
 import { Button } from "@nextui-org/button";
 
-export default function Home() {
+export default function Page() {
   return (
     <div>
       <h1 className="text-3xl font-bold underline">
