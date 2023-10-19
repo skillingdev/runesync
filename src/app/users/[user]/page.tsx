@@ -1,36 +1,15 @@
-import { LineChart, CartesianGrid, XAxis, YAxis, Line, ResponsiveContainer } from 'recharts'
-
 import { Collection } from "mongodb"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import clientPromise from "~/mongodb"
 import { StatEntry } from "~/types"
+import { Stats } from './chart';
 
 async function fetchStatsTimeline(displayName: String) {
-    console.log("starting.... for " + displayName)
-
     const client = await clientPromise
     const stats: Collection<StatEntry> = client.db("test").collection("stats")
-    const userStats: StatEntry[] = await stats.find({ displayName }, { sort: { timestamp: 1 } }).toArray()
-
-    console.log(userStats)
+    const userStats: StatEntry[] = await stats.find({ displayName }, { sort: { timestamp: 1 }, projection: { _id: 0 } }).toArray()
 
     return userStats
-}
-
-function Stats({ statEntries }: { statEntries: StatEntry[] }) {
-    const listDates = statEntries.map((stat, ix) => <li key={ix}>{stat.timestamp.toLocaleString()}</li>)
-    console.log(statEntries)
-
-    return (
-        <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={statEntries}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="timestamp" />
-                <YAxis />
-                <Line type="monotone" dataKey={(val) => val.stats.activites.leaguePoints} stroke="#8884d8" />
-            </LineChart>
-        </ResponsiveContainer>
-    )
 }
 
 export default async function Page({ params }: { params: { user: string } }) {

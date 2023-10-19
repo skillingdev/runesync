@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.1.13",
+    "@visx/curve": "^3.3.0",
+    "@visx/tooltip": "^3.3.0",
+    "@visx/xychart": "^3.4.0",
     "framer-motion": "^10.16.4",
     "mongodb": "^6.1.0",
     "next": "13.5.5",
