@@ -58,7 +58,7 @@ export const HiscoreSkillsEntrySchema = z.object({
     smithing: HiscoreSkillEntrySchema,
     mining: HiscoreSkillEntrySchema,
     herblore: HiscoreSkillEntrySchema,
-    agaility: HiscoreSkillEntrySchema,
+    agility: HiscoreSkillEntrySchema,
     thieving: HiscoreSkillEntrySchema,
     slayer: HiscoreSkillEntrySchema,
     farming: HiscoreSkillEntrySchema,
@@ -156,3 +156,7 @@ export const StatEntrySchema = z.object({
 })
 
 export type StatEntry = z.infer<typeof StatEntrySchema>
+
+export type Skill = 'overall' | 'attack' | 'strength' | 'defence' | 'hitpoints' | 'ranged' | 'prayer' | 'magic' | 'cooking' | 'woodcutting' | 'fletching' | 'fishing' | 'firemaking' | 'crafting' | 'smithing' | 'mining' | 'herblore' | 'agility' | 'thieving' | 'slayer' | 'farming' | 'runecraft' | 'hunter' | 'construction'
+
+export type Activity = 'leaguePoints' | 'clueScrollsAll' | 'clueScrollsBeginner' | 'clueScrollsEasy' | 'clueScrollsMedium' | 'clueScrollsHard' | 'clueScrollsElite' | 'clueScrollsMaster' | 'soulWarsZeal' | 'riftsClosed' | 'abyssalSire' | 'alchemicalHydra' | 'artio' | 'barrowsChests' | 'bryophyta' | 'callisto' | 'calvarion' | 'cerberus' | 'chambersOfXeric' | 'chambersOfXericChallengeMode' | 'chaosElemental' | 'chaosFanatic' | 'commanderZilyana' | 'corporealBeast' | 'crazyArchaeologist' | 'dagannothPrime' | 'dagannothRex' | 'dagannothSupreme' | 'derangedArchaeologist' | 'dukeSucellus' | 'generalGraardor' | 'giantMole' | 'grotesqueGuardians' | 'hespori' | 'kalphiteQueen' | 'kingBlackDragon' | 'kraken' | 'kreearra' | 'krilTsutsaroth' | 'mimic' | 'nex' | 'nightmare' | 'phosanisNightmare' | 'obor' | 'phantomMuspah' | 'sarachnis' | 'scorpia' | 'skotizo' | 'spindel' | 'tempoross' | 'theGauntlet' | 'theCorruptedGauntlet' | 'theLeviathan' | 'theWhisperer' | 'theatreOfBlood' | 'theatreOfBloodHardMode' | 'thermonuclearSmokeDevil' | 'tombsOfAmascut' | 'tombsOfAmascutExpertMode' | 'tzkalZuk' | 'tztokJad' | 'vardorvis' | 'venenatis' | 'vetion' | 'vorkath' | 'wintertodt' | 'zalcano' | 'zulrah'
