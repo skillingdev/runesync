@@ -46,6 +46,5 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiRequestErr
         return NextResponse.json({ error: "DB transaction failed" }, { status: 400 })
     }
 
-
     return NextResponse.json({ ok: true })
 }

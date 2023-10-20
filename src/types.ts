@@ -1,4 +1,3 @@
-import { Long } from "mongodb";
 import { z } from "zod";
 
 export const UsernameEntrySchema = z.object({
@@ -160,3 +159,24 @@ export type StatEntry = z.infer<typeof StatEntrySchema>
 export type Skill = 'overall' | 'attack' | 'strength' | 'defence' | 'hitpoints' | 'ranged' | 'prayer' | 'magic' | 'cooking' | 'woodcutting' | 'fletching' | 'fishing' | 'firemaking' | 'crafting' | 'smithing' | 'mining' | 'herblore' | 'agility' | 'thieving' | 'slayer' | 'farming' | 'runecraft' | 'hunter' | 'construction'
 
 export type Activity = 'leaguePoints' | 'clueScrollsAll' | 'clueScrollsBeginner' | 'clueScrollsEasy' | 'clueScrollsMedium' | 'clueScrollsHard' | 'clueScrollsElite' | 'clueScrollsMaster' | 'soulWarsZeal' | 'riftsClosed' | 'abyssalSire' | 'alchemicalHydra' | 'artio' | 'barrowsChests' | 'bryophyta' | 'callisto' | 'calvarion' | 'cerberus' | 'chambersOfXeric' | 'chambersOfXericChallengeMode' | 'chaosElemental' | 'chaosFanatic' | 'commanderZilyana' | 'corporealBeast' | 'crazyArchaeologist' | 'dagannothPrime' | 'dagannothRex' | 'dagannothSupreme' | 'derangedArchaeologist' | 'dukeSucellus' | 'generalGraardor' | 'giantMole' | 'grotesqueGuardians' | 'hespori' | 'kalphiteQueen' | 'kingBlackDragon' | 'kraken' | 'kreearra' | 'krilTsutsaroth' | 'mimic' | 'nex' | 'nightmare' | 'phosanisNightmare' | 'obor' | 'phantomMuspah' | 'sarachnis' | 'scorpia' | 'skotizo' | 'spindel' | 'tempoross' | 'theGauntlet' | 'theCorruptedGauntlet' | 'theLeviathan' | 'theWhisperer' | 'theatreOfBlood' | 'theatreOfBloodHardMode' | 'thermonuclearSmokeDevil' | 'tombsOfAmascut' | 'tombsOfAmascutExpertMode' | 'tzkalZuk' | 'tztokJad' | 'vardorvis' | 'venenatis' | 'vetion' | 'vorkath' | 'wintertodt' | 'zalcano' | 'zulrah'
+
+export const EventLocationSchema = z.object({
+    x: z.number(),
+    y: z.number(),
+    plane: z.number(),
+    region: z.number(),
+})
+
+export type EventLocation = z.infer<typeof EventLocationSchema>
+
+export const LootEntrySchema = z.object({
+    timestamp: z.string().pipe(z.coerce.date()),
+    accountHash: z.string(),
+    itemName: z.string(),
+    itemId: z.number(),
+    sourceName: z.string(),
+    sourceLevel: z.number().nullable(),
+    location: EventLocationSchema,
+})
+
+export type LootEntry = z.infer<typeof LootEntrySchema>
