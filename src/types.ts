@@ -180,3 +180,12 @@ export const LootEntrySchema = z.object({
 })
 
 export type LootEntry = z.infer<typeof LootEntrySchema>
+
+export type UserEventType = 'Loot' // TODO: Add more event types
+
+export const userEventTypes: UserEventType[] = ['Loot']
+
+export type LootEntryEvent = Omit<LootEntry, "accountHash">
+
+export type UserEvent
+    = { type: UserEventType, event: LootEntryEvent }

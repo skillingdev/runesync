@@ -1,6 +1,7 @@
 import '~/styles/global.css'
 
-import { Providers } from "./providers";
+import { Providers } from "./providers"
+import { Header } from './header'
 
 export default function RootLayout({
     children,
@@ -8,12 +9,15 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className='light'>
-            <body>
+        <html lang="en" className='light' >
+            <body className="min-h-screen">
                 <Providers>
-                    {children}
+                    <div className="flex flex-col min-h-screen">
+                        <Header />
+                        <div className="grow">{children}</div>
+                    </div>
                 </Providers>
             </body>
-        </html>
+        </html >
     )
 }

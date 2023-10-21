@@ -20,7 +20,7 @@ export function Stats({ statEntries }: { statEntries: StatEntry[] }) {
     const render = () => (
         <XYChart height={600} width={800} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
             <Axis orientation="bottom" numTicks={4} />
-            <Axis orientation="left" numTicks={4} />
+            <Axis orientation="right" numTicks={4} />
             <Grid columns={false} numTicks={4} />
             <LineSeries curve={curveStep} dataKey="League Points" data={statEntries} {...accessors} />
             <Tooltip<StatEntry>
