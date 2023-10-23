@@ -52,15 +52,11 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
 
         if (hasSearchFilter) {
             filteredEvents = filteredEvents.filter((event) => {
-                if (event.type == 'Loot') {
-                    return showEvent(event).toLowerCase().includes(filterValue.toLowerCase())
-                }
-
-                return false
+                return showEvent(event).toLowerCase().includes(filterValue.toLowerCase())
             })
         }
 
-        return filteredEvents
+        return filteredEvents.map((event, ix) => ({ ix, event }))
     }, [events, filterValue, eventTypeFilter])
 
     const renderCell = useCallback((event: UserEvent, columnKey: React.Key) => {
@@ -179,9 +175,6 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
         <Table
             aria-label="Example table with custom cells, pagination and sorting"
             isHeaderSticky
-            classNames={{
-                wrapper: "max-h-[382px]",
-            }}
             topContent={topContent}
             topContentPlacement="outside"
         >
@@ -198,8 +191,8 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
             </TableHeader>
             <TableBody emptyContent={"No events found"} items={filteredEvents}>
                 {(item) => (
-                    <TableRow key={item.type}>
-                        {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                    <TableRow key={item.ix}>
+                        {(columnKey) => <TableCell>{renderCell(item.event, columnKey)}</TableCell>}
                     </TableRow>
                 )}
             </TableBody>
