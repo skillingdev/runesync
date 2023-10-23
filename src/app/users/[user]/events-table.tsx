@@ -118,7 +118,7 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
                     <div className="flex gap-3">
                         <Dropdown>
                             <DropdownTrigger className="sm:flex">
-                                <Button endContent={<FaChevronDown className="text-small" />} variant="flat">
+                                <Button endContent={<FaChevronDown className="text-small" />} variant="bordered">
                                     Event Type
                                 </Button>
                             </DropdownTrigger>
@@ -139,7 +139,7 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
                         </Dropdown>
                         <Dropdown>
                             <DropdownTrigger className="sm:flex">
-                                <Button endContent={<FaChevronDown className="text-small" />} variant="flat">
+                                <Button endContent={<FaChevronDown className="text-small" />} variant="bordered">
                                     Columns
                                 </Button>
                             </DropdownTrigger>

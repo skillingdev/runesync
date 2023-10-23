@@ -146,10 +146,27 @@ export function StatsLoading() {
 }
 
 export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
-    //    const [selectedSkills, setSelectedSkills] = useState<Skill[]>(INITIAL_SKILLS);
-    //    const [selectedActivities, setSelectedActivities] = useState<Activity[]>(INITIAL_ACTIVITIES);
     const [selectedSkillKeys, setSelectedSkillKeys] = useState<Selection>(new Set(["overall"]))
     const [selectedSkillDataKeys, setSelectedSkillDataKeys] = useState<Selection>(new Set(['level']))
+    const [selectedActivitiesKeys, setSelectedActivitiesKeys] = useState<Selection>(new Set(["leaguePoints"]))
+    const [selectedActivitiesDataKeys, setSelectedActivitiesDataKeys] = useState<Selection>(new Set(['score']))
+
+    const selectedActivities: Activity[] = useMemo(() => {
+        if (selectedActivitiesKeys == 'all') {
+            return Array.of(...Activities)
+        }
+
+        return (Array.from(selectedActivitiesKeys) as Activity[])
+    }, [selectedActivitiesKeys])
+
+    const selectedActivitiesData: ActivityData = useMemo(() => {
+        if (selectedActivitiesDataKeys == "all") {
+            return 'score'
+        }
+
+        return Array.from(selectedActivitiesDataKeys)[0] as ActivityData
+    }, [selectedActivitiesDataKeys])
+
 
     const selectedSkills: Skill[] = useMemo(() => {
         if (selectedSkillKeys == 'all') {
@@ -168,8 +185,99 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
     }, [selectedSkillDataKeys])
 
     return (
-        <div className="flex w-full max-w-full">
-            <div className="w-full max-w-full overflow-y-hidden  h-[440px]">
+        <div className="flex w-full max-w-full gap-8 mt-8 flex-col lg:flex-row">
+            <div className="w-full max-w-full overflow-y-hidden h-[440px] ">
+                <div className="flex justify-between items-center">
+                    <div className="text-2xl">Activities</div>
+                    <div className="flex gap-3">
+                        <Dropdown shouldBlockScroll={false}>
+                            <DropdownTrigger>
+                                <Button
+                                    variant="bordered"
+                                    endContent={<FaChevronDown />}
+                                >
+                                    Select Activities
+                                </Button>
+                            </DropdownTrigger>
+                            <DropdownMenu
+                                aria-label="Select skills"
+                                variant="flat"
+                                closeOnSelect={false}
+                                disallowEmptySelection
+                                selectionMode="multiple"
+                                selectedKeys={selectedActivitiesKeys}
+                                onSelectionChange={setSelectedActivitiesKeys}
+                                className="h-48 overflow-auto"
+                            >
+                                {...Activities.map((output) => (
+                                    <DropdownItem key={output}>{getActivityName(output)}</DropdownItem>
+                                ))}
+                            </DropdownMenu>
+                        </Dropdown>
+                        <Dropdown shouldBlockScroll={false}>
+                            <DropdownTrigger>
+                                <Button
+                                    variant="bordered"
+                                    className="capitalize"
+                                    endContent={<FaChevronDown />}
+                                >
+                                    {selectedActivitiesData}
+                                </Button>
+                            </DropdownTrigger>
+                            <DropdownMenu
+                                aria-label="Select skill data"
+                                variant="flat"
+                                disallowEmptySelection
+                                selectionMode="single"
+                                selectedKeys={selectedActivitiesDataKeys}
+                                onSelectionChange={setSelectedActivitiesDataKeys}
+                            >
+                                <DropdownItem key="score">Score</DropdownItem>
+                                <DropdownItem key="rank">Rank</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                    </div>
+                </div>
+                <div className="h-[400px]">
+                    <ParentSize ignoreDimensions={'height'} className="flex justify-center max-w-full overflow-y-hidden">
+                        {(parent) => (
+                            <XYChart height={400} width={Math.max(200, parent.width)} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
+                                <Axis orientation="bottom" numTicks={4} />
+                                <Axis orientation="right" numTicks={4} />
+                                <Grid columns={false} numTicks={4} />
+
+                                {selectedActivities.map(activity => (
+                                    <LineSeries key={activity} curve={curveStep} dataKey={activity} data={statEntries} xAccessor={dateAccessor} yAccessor={getActivityData(activity, selectedActivitiesData)} />
+                                ))}
+
+                                <Tooltip<StatEntry>
+                                    snapTooltipToDatumX
+                                    snapTooltipToDatumY
+                                    showVerticalCrosshair
+                                    showSeriesGlyphs
+                                    renderTooltip={({ tooltipData }) => {
+                                        const datum = tooltipData?.nearestDatum?.datum;
+                                        if (!datum) {
+                                            return <div>No data.</div>
+                                        }
+
+                                        return (
+                                            <>
+                                                {datum.timestamp.toLocaleString()}
+                                                {selectedActivities.map((output) => (
+                                                    <div key={output}>{getActivityName(output)}: {getActivityData(output, selectedActivitiesData)(datum)}</div>
+                                                ))}
+                                            </>
+                                        )
+                                    }}
+                                />
+                            </XYChart>
+                        )}
+                    </ParentSize>
+                </div>
+            </div>
+
+            <div className="w-full max-w-full overflow-y-hidden h-[440px]">
                 <div className="flex justify-between items-center">
                     <div className="text-2xl">Skills</div>
                     <div className="flex gap-3">
@@ -225,7 +333,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                 <div className="h-[400px]">
                     <ParentSize ignoreDimensions={'height'} className="flex justify-center max-w-full overflow-y-hidden">
                         {(parent) => (
-                            <XYChart height={400} width={Math.max(200, 0.8 * parent.width)} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
+                            <XYChart height={400} width={Math.max(200, parent.width)} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
                                 <Axis orientation="bottom" numTicks={4} />
                                 <Axis orientation="right" numTicks={4} />
                                 <Grid columns={false} numTicks={4} />
@@ -245,9 +353,15 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                             return <div>No data.</div>
                                         }
 
-                                        return selectedSkills.map((output) => (
-                                            <div key={output}>{getSkillName(output)}: {getSkillData(output, selectedSkillData)(datum)}</div>
-                                        ))
+                                        return (
+                                            <>
+                                                {datum.timestamp.toLocaleString()}
+                                                {selectedSkills.map((output) => (
+                                                    <div key={output}>{getSkillName(output)}: {getSkillData(output, selectedSkillData)(datum)}</div>
+                                                ))}
+                                            </>
+                                        )
+
                                     }}
                                 />
                             </XYChart>
