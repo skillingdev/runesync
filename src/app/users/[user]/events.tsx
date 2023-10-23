@@ -1,11 +1,9 @@
 import { Collection } from "mongodb"
-import { Suspense, useState } from "react"
 import clientPromise from "~/mongodb"
-import { AccountEntry, LootEntry, LootEntryEvent, StatEntry } from "~/types"
-import { StatsChart } from './stats-chart'
+import { AccountEntry, LootEntry, LootEntryEvent, UserEvent } from "~/types"
 import EventsTable from "./events-table"
 
-async function fetchLootTimeline(displayName: String): Promise<LootEntryEvent[]> {
+async function fetchLootTimeline(displayName: String): Promise<UserEvent[]> {
     // Need to lookup accountHash by displayName, then aggregate loot
     const client = await clientPromise
     const accounts: Collection<AccountEntry> = client.db("test").collection("accounts")
@@ -20,13 +18,13 @@ async function fetchLootTimeline(displayName: String): Promise<LootEntryEvent[]>
     const loots: Collection<LootEntry> = client.db("test").collection("loots")
     const lootEntries: LootEntryEvent[] = await loots.find({ accountHash }, { sort: { timestamp: 1 }, projection: { _id: 0, accountHash: 0 } }).toArray()
 
-    return lootEntries
+    return lootEntries.map((event) => ({ type: 'Loot', event }))
 }
 
 export async function LootTimeline({ user }: { user: String }) {
     const lootEntries = await fetchLootTimeline(user)
 
     return (
-        <EventsTable events={lootEntries.map((event) => ({ type: 'Loot', event }))} />
+        <EventsTable events={lootEntries} />
     )
 }

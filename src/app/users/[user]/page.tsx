@@ -1,10 +1,8 @@
-import { Collection } from "mongodb"
-import { Suspense, useState } from "react"
-import clientPromise from "~/mongodb"
+import { Suspense } from "react"
 import { Stats } from "./stats"
 import { LootTimeline } from "./events"
 
-export default async function Page({ params }: { params: { user: string } }) {
+export default function Page({ params }: { params: { user: string } }) {
     const user = decodeURIComponent(params.user)
 
     return (

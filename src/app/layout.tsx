@@ -2,6 +2,7 @@ import '~/styles/global.css'
 
 import { Providers } from "./providers"
 import { Header } from './header'
+import { Sidebar } from './sidebar'
 
 export default function RootLayout({
     children,
@@ -14,7 +15,10 @@ export default function RootLayout({
                 <Providers>
                     <div className="flex flex-col min-h-screen">
                         <Header />
-                        <div className="grow">{children}</div>
+                        <div className="flex min-h-screen">
+                            <Sidebar />
+                            <div className="grow">{children}</div>
+                        </div>
                     </div>
                 </Providers>
             </body>

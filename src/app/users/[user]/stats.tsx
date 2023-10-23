@@ -1,9 +1,7 @@
 import { Collection } from "mongodb"
-import { Suspense, useState } from "react"
 import clientPromise from "~/mongodb"
-import { AccountEntry, LootEntry, LootEntryEvent, StatEntry } from "~/types"
+import { StatEntry } from "~/types"
 import { StatsChart } from './stats-chart'
-import Events from "./events-table"
 
 async function fetchStatsTimeline(displayName: String): Promise<StatEntry[]> {
     const client = await clientPromise
