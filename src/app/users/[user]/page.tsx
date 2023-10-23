@@ -10,10 +10,10 @@ export default function Page({ params }: { params: { user: string } }) {
             <h1 className="text-3xl font-bold underline">
                 {user}
             </h1>
-            <Suspense fallback={"Loading stats..."}>
+            <Suspense>
                 <Stats user={user} />
             </Suspense>
-            <Suspense fallback={"Loading loot timeline..."}>
+            <Suspense>
                 <LootTimeline user={user} />
             </Suspense>
         </div>

@@ -11,13 +11,13 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className='light' >
-            <body className="">
+            <body>
                 <Providers>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col h-full">
                         <Header />
-                        <div className="flex">
+                        <div className="flex h-full max-h-full overflow-hidden">
                             <Sidebar />
-                            <div className="grow">{children}</div>
+                            <div className="grow basis-0 pr-[12rem] h-full">{children}</div>
                         </div>
                     </div>
                 </Providers>

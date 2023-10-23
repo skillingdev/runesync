@@ -162,7 +162,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
 
     return (
         <div className="flex w-full max-w-full">
-            <div className="w-full max-w-full">
+            <div className="w-full max-w-full overflow-y-hidden  h-[440px]">
                 <div className="flex justify-between items-center">
                     <div className="text-2xl">Skills</div>
                     <div className="flex gap-3">
@@ -215,36 +215,38 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                         </Dropdown>
                     </div>
                 </div>
-                <ParentSize className="flex justify-center max-w-full">
-                    {(parent) => (
-                        <XYChart height={400} width={Math.max(200, 0.8 * parent.width)} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
-                            <Axis orientation="bottom" numTicks={4} />
-                            <Axis orientation="right" numTicks={4} />
-                            <Grid columns={false} numTicks={4} />
+                <div className="h-[400px]">
+                    <ParentSize ignoreDimensions={'height'} className="flex justify-center max-w-full overflow-y-hidden">
+                        {(parent) => (
+                            <XYChart height={400} width={Math.max(200, 0.8 * parent.width)} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
+                                <Axis orientation="bottom" numTicks={4} />
+                                <Axis orientation="right" numTicks={4} />
+                                <Grid columns={false} numTicks={4} />
 
-                            {selectedSkills.map(skill => (
-                                <LineSeries key={skill} curve={curveStep} dataKey={skill} data={statEntries} xAccessor={dateAccessor} yAccessor={getSkillData(skill, selectedSkillData)} />
-                            ))}
+                                {selectedSkills.map(skill => (
+                                    <LineSeries key={skill} curve={curveStep} dataKey={skill} data={statEntries} xAccessor={dateAccessor} yAccessor={getSkillData(skill, selectedSkillData)} />
+                                ))}
 
-                            <Tooltip<StatEntry>
-                                snapTooltipToDatumX
-                                snapTooltipToDatumY
-                                showVerticalCrosshair
-                                showSeriesGlyphs
-                                renderTooltip={({ tooltipData }) => {
-                                    const datum = tooltipData?.nearestDatum?.datum;
-                                    if (!datum) {
-                                        return <div>No data.</div>
-                                    }
+                                <Tooltip<StatEntry>
+                                    snapTooltipToDatumX
+                                    snapTooltipToDatumY
+                                    showVerticalCrosshair
+                                    showSeriesGlyphs
+                                    renderTooltip={({ tooltipData }) => {
+                                        const datum = tooltipData?.nearestDatum?.datum;
+                                        if (!datum) {
+                                            return <div>No data.</div>
+                                        }
 
-                                    return selectedSkills.map((output) => (
-                                        <div key={output}>{getSkillName(output)}: {getSkillData(output, selectedSkillData)(datum)}</div>
-                                    ))
-                                }}
-                            />
-                        </XYChart>
-                    )}
-                </ParentSize>
+                                        return selectedSkills.map((output) => (
+                                            <div key={output}>{getSkillName(output)}: {getSkillData(output, selectedSkillData)(datum)}</div>
+                                        ))
+                                    }}
+                                />
+                            </XYChart>
+                        )}
+                    </ParentSize>
+                </div>
             </div>
         </div >
     )
