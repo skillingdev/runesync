@@ -8,7 +8,7 @@ import {
     Tooltip,
 } from '@visx/xychart';
 import { curveStep } from '@visx/curve'
-import { CheckboxGroup, Checkbox, Selection, Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem } from "@nextui-org/react"
+import { CheckboxGroup, Checkbox, Selection, Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, Skeleton } from "@nextui-org/react"
 
 import { Activities, Activity, ActivityData, Skill, SkillData, Skills, StatEntry } from '~/types'
 import { ParentSize } from '@visx/responsive'
@@ -137,6 +137,13 @@ function getSkillName(skill: Skill): string {
     }
 }
 
+export function StatsLoading() {
+    return (
+        <Skeleton className="rounded-lg">
+            <div className="h-[440px] rounded-lg bg-default-300"></div>
+        </Skeleton>
+    )
+}
 
 export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
     //    const [selectedSkills, setSelectedSkills] = useState<Skill[]>(INITIAL_SKILLS);

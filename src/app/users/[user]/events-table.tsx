@@ -177,7 +177,6 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
             isHeaderSticky
             topContent={topContent}
             topContentPlacement="outside"
-            className="h-full"
         >
             <TableHeader columns={headerColumns}>
                 {(column) => (

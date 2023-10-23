@@ -6,7 +6,7 @@ import { NavItems } from "./nav-items"
 
 export function Header() {
     return (
-        <Navbar maxWidth="full" position="static" disableAnimation={true} className="Header">
+        <Navbar maxWidth="full" position="static">
             <NavbarContent>
                 <NavbarMenuToggle
                     className="sm:hidden"

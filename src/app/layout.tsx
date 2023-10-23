@@ -10,15 +10,13 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className='light' >
-            <body>
+        <html lang="en" className="light">
+            <body className=" min-h-screen overflow-auto">
                 <Providers>
-                    <div className="flex flex-col h-full">
-                        <Header />
-                        <div className="flex h-full max-h-full overflow-hidden">
-                            <Sidebar />
-                            <div className="grow basis-0 pr-[12rem] h-full">{children}</div>
-                        </div>
+                    <Header />
+                    <div className="flex">
+                        <Sidebar />
+                        <div className="grow basis-0 pr-[12rem]">{children}</div>
                     </div>
                 </Providers>
             </body>
