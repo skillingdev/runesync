@@ -8,7 +8,7 @@ import {
     Tooltip,
 } from '@visx/xychart';
 import { curveStep } from '@visx/curve'
-import { CheckboxGroup, Checkbox, Selection, Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, Skeleton } from "@nextui-org/react"
+import { CheckboxGroup, Checkbox, Selection, Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, Skeleton, Spinner } from "@nextui-org/react"
 
 import { Activities, Activity, ActivityData, Skill, SkillData, Skills, StatEntry } from '~/types'
 import { ParentSize } from '@visx/responsive'
@@ -141,6 +141,14 @@ function getSkillName(skill: Skill): string {
         case 'hunter': return "Hunter"
         case 'construction': return "Construction"
     }
+}
+
+export function StatsEmpty() {
+    return (
+        <div className="w-full flex items-center justify-center h-[440px]">
+            <span>No stats found.</span>
+        </div>
+    )
 }
 
 export function StatsLoading() {

@@ -195,7 +195,7 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody emptyContent={"No events found"} items={filteredEvents}>
+            <TableBody emptyContent={"No events found. Do you have the plugin installed?"} items={filteredEvents}>
                 {(item) => (
                     <TableRow key={item.ix}>
                         {(columnKey) => <TableCell>{renderCell(item.event, columnKey)}</TableCell>}

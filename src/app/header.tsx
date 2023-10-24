@@ -1,27 +1,20 @@
 "use client"
 
 import React from "react"
-import { Navbar, NavbarBrand, NavbarContent, Link, NavbarMenu, NavbarMenuToggle, Chip } from "@nextui-org/react"
-import { NavItems } from "./nav-items"
+import { Navbar, NavbarBrand, NavbarContent, Link, Chip } from "@nextui-org/react"
 
 export function Header() {
     return (
         <Navbar maxWidth="full" position="static">
             <NavbarContent>
-                <NavbarMenuToggle
-                    className="sm:hidden"
-                />
-                <NavbarBrand>
-                    <p className="font-bold text-inherit">RuneSync</p>
+                <NavbarBrand className="w-fit">
+                    <Link className="font-bold" href="/">RuneSync</Link>
                 </NavbarBrand>
             </NavbarContent>
 
             <NavbarContent justify="end">
                 <Chip variant="bordered" color="default">Make sure to install the plugin!</Chip>
             </NavbarContent>
-            <NavbarMenu>
-                <NavItems />
-            </NavbarMenu>
         </Navbar>
     )
 }

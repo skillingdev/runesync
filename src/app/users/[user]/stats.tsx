@@ -1,7 +1,7 @@
 import { Collection } from "mongodb"
 import clientPromise from "~/mongodb"
 import { StatEntry } from "~/types"
-import { StatsChart } from './stats-chart'
+import { StatsChart, StatsEmpty } from './stats-chart'
 
 async function fetchStatsTimeline(displayName: String): Promise<StatEntry[]> {
     const client = await clientPromise
@@ -13,6 +13,12 @@ async function fetchStatsTimeline(displayName: String): Promise<StatEntry[]> {
 
 export async function Stats({ user }: { user: string }) {
     const statEntries = await fetchStatsTimeline(decodeURIComponent(user))
+
+    if (statEntries.length == 0) {
+        return (
+            <StatsEmpty />
+        )
+    }
 
     return (
         <StatsChart statEntries={statEntries} />
