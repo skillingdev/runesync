@@ -29,7 +29,7 @@ const dateAccessor = (d: StatEntry) => d.timestamp.toLocaleString()
 function getActivityData(activity: Activity, data: ActivityData) {
     return function (d: StatEntry) {
         switch (data) {
-            case 'rank': return d.stats.activities[activity]?.rank || 0
+            case 'rank': return d.stats.activities[activity]?.rank
             case 'score': return d.stats.activities[activity]?.score || 0
         }
     }
@@ -329,7 +329,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                             <>
                                                 <div className="mb-2">{datum.timestamp.toLocaleString()}</div>
                                                 {selectedActivities.map((output) => (
-                                                    <div key={output}><span style={{ color: colorScale?.(output) }}>{getActivityName(output)}</span>: {getActivityData(output, selectedActivitiesData)(datum)}</div>
+                                                    <div key={output}><span style={{ color: colorScale?.(output) }}>{getActivityName(output)}</span>: {getActivityData(output, selectedActivitiesData)(datum) || "Unranked"}</div>
                                                 ))}
                                             </>
                                         )
