@@ -79,8 +79,8 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
                 switch (event.type) {
                     case 'Loot':
                         return (
-                            <div className="flex content-center">
-                                <img src={`https://static.runelite.net/cache/item/icon/${event.event.itemId}.png`} />
+                            <div className="flex items-center">
+                                <img className="h-8 w-8 mr-3" src={`https://static.runelite.net/cache/item/icon/${event.event.itemId}.png`} />
                                 <span>{showEvent(event)}</span>
                             </div>
                         )
@@ -175,6 +175,7 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
         <Table
             aria-label="Example table with custom cells, pagination and sorting"
             isHeaderSticky
+            isStriped
             topContent={topContent}
             topContentPlacement="outside"
         >

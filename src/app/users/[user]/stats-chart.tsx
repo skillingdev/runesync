@@ -12,8 +12,13 @@ import { CheckboxGroup, Checkbox, Selection, Dropdown, DropdownTrigger, Button, 
 
 import { Activities, Activity, ActivityData, Skill, SkillData, Skills, StatEntry } from '~/types'
 import { ParentSize } from '@visx/responsive'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { FaChevronDown } from 'react-icons/fa';
+
+const ACTIVITIES_KEYS = "user-activities-keys"
+const ACTIVITIES_DATA_KEY = "user-activities-data-key"
+const SKILLS_KEYS = "user-skills-keys"
+const SKILLS_DATA_KEY = "user-skills-data-key"
 
 const INITIAL_SKILLS: Skill[] = []
 const INITIAL_ACTIVITIES: Activity[] = ['leaguePoints']
@@ -151,6 +156,61 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
     const [selectedActivitiesKeys, setSelectedActivitiesKeys] = useState<Selection>(new Set(["leaguePoints"]))
     const [selectedActivitiesDataKeys, setSelectedActivitiesDataKeys] = useState<Selection>(new Set(['score']))
 
+    useEffect(() => {
+        const storedActivityKeys = localStorage.getItem(ACTIVITIES_KEYS)
+        if (storedActivityKeys) {
+            setSelectedActivitiesKeys(new Set(JSON.parse(storedActivityKeys)))
+        }
+        const storedActivityDataKey = localStorage.getItem(ACTIVITIES_DATA_KEY)
+        if (storedActivityDataKey) {
+            setSelectedActivitiesDataKeys(new Set([JSON.parse(storedActivityDataKey)]))
+        }
+        const storedSkillKeys = localStorage.getItem(SKILLS_KEYS)
+        if (storedSkillKeys) {
+            setSelectedSkillKeys(new Set(JSON.parse(storedSkillKeys)))
+        }
+        const storedSkillDataKey = localStorage.getItem(SKILLS_DATA_KEY)
+        if (storedSkillDataKey) {
+            setSelectedSkillDataKeys(new Set([JSON.parse(storedSkillDataKey)]))
+        }
+    }, [])
+
+    const handleSkillKeys = (selection: Selection) => {
+        setSelectedSkillKeys(selection)
+        if (selection == "all") {
+            localStorage.setItem(SKILLS_KEYS, JSON.stringify(Array.of(...Skills)))
+        } else {
+            localStorage.setItem(SKILLS_KEYS, JSON.stringify(Array.from(selection)))
+        }
+    }
+
+    const handleSkillDataKey = (selection: Selection) => {
+        setSelectedSkillDataKeys(selection)
+        if (selection == "all") {
+            localStorage.setItem(SKILLS_DATA_KEY, "level")
+        } else {
+            localStorage.setItem(SKILLS_DATA_KEY, JSON.stringify(Array.from(selection)[0]))
+        }
+    }
+
+    const handleActivityKeys = (selection: Selection) => {
+        setSelectedActivitiesKeys(selection)
+        if (selection == "all") {
+            localStorage.setItem(ACTIVITIES_KEYS, JSON.stringify(Array.of(...Activities)))
+        } else {
+            localStorage.setItem(ACTIVITIES_KEYS, JSON.stringify(Array.from(selection)))
+        }
+    }
+
+    const handleActivityDataKey = (selection: Selection) => {
+        setSelectedActivitiesDataKeys(selection)
+        if (selection == "all") {
+            localStorage.setItem(ACTIVITIES_DATA_KEY, "score")
+        } else {
+            localStorage.setItem(ACTIVITIES_DATA_KEY, JSON.stringify(Array.from(selection)[0]))
+        }
+    }
+
     const selectedActivities: Activity[] = useMemo(() => {
         if (selectedActivitiesKeys == 'all') {
             return Array.of(...Activities)
@@ -206,7 +266,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                 disallowEmptySelection
                                 selectionMode="multiple"
                                 selectedKeys={selectedActivitiesKeys}
-                                onSelectionChange={setSelectedActivitiesKeys}
+                                onSelectionChange={handleActivityKeys}
                                 className="h-48 overflow-auto"
                             >
                                 {...Activities.map((output) => (
@@ -230,7 +290,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                 disallowEmptySelection
                                 selectionMode="single"
                                 selectedKeys={selectedActivitiesDataKeys}
-                                onSelectionChange={setSelectedActivitiesDataKeys}
+                                onSelectionChange={handleActivityDataKey}
                             >
                                 <DropdownItem key="score">Score</DropdownItem>
                                 <DropdownItem key="rank">Rank</DropdownItem>
@@ -297,7 +357,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                 disallowEmptySelection
                                 selectionMode="multiple"
                                 selectedKeys={selectedSkillKeys}
-                                onSelectionChange={setSelectedSkillKeys}
+                                onSelectionChange={handleSkillKeys}
                                 className="h-48 overflow-auto"
                             >
                                 {...Skills.map((output) => (
@@ -321,7 +381,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                 disallowEmptySelection
                                 selectionMode="single"
                                 selectedKeys={selectedSkillDataKeys}
-                                onSelectionChange={setSelectedSkillDataKeys}
+                                onSelectionChange={handleSkillDataKey}
                             >
                                 <DropdownItem key="level">Level</DropdownItem>
                                 <DropdownItem key="xp">XP</DropdownItem>
