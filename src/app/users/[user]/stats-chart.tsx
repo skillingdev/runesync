@@ -14,6 +14,7 @@ import { Activities, Activity, ActivityData, Skill, SkillData, Skills, StatEntry
 import { ParentSize } from '@visx/responsive'
 import { useEffect, useMemo, useState } from 'react'
 import { FaChevronDown } from 'react-icons/fa';
+import { TooltipWithBounds } from '@visx/tooltip';
 
 const ACTIVITIES_KEYS = "user-activities-keys"
 const ACTIVITIES_DATA_KEY = "user-activities-data-key"
@@ -317,7 +318,8 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                     snapTooltipToDatumY
                                     showVerticalCrosshair
                                     showSeriesGlyphs
-                                    renderTooltip={({ tooltipData }) => {
+                                    detectBounds={true}
+                                    renderTooltip={({ tooltipData, colorScale }) => {
                                         const datum = tooltipData?.nearestDatum?.datum;
                                         if (!datum) {
                                             return <div>No data.</div>
@@ -325,9 +327,9 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
 
                                         return (
                                             <>
-                                                {datum.timestamp.toLocaleString()}
+                                                <div className="mb-2">{datum.timestamp.toLocaleString()}</div>
                                                 {selectedActivities.map((output) => (
-                                                    <div key={output}>{getActivityName(output)}: {getActivityData(output, selectedActivitiesData)(datum)}</div>
+                                                    <div key={output}><span style={{ color: colorScale?.(output) }}>{getActivityName(output)}</span>: {getActivityData(output, selectedActivitiesData)(datum)}</div>
                                                 ))}
                                             </>
                                         )
@@ -411,7 +413,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                     snapTooltipToDatumY
                                     showVerticalCrosshair
                                     showSeriesGlyphs
-                                    renderTooltip={({ tooltipData }) => {
+                                    renderTooltip={({ tooltipData, colorScale }) => {
                                         const datum = tooltipData?.nearestDatum?.datum;
                                         if (!datum) {
                                             return <div>No data.</div>
@@ -419,9 +421,9 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
 
                                         return (
                                             <>
-                                                {datum.timestamp.toLocaleString()}
+                                                <div className="mb-2">{datum.timestamp.toLocaleString()}</div>
                                                 {selectedSkills.map((output) => (
-                                                    <div key={output}>{getSkillName(output)}: {getSkillData(output, selectedSkillData)(datum)}</div>
+                                                    <div key={output}><span style={{ color: colorScale?.(output) }}>{getSkillName(output)}</span>: {getSkillData(output, selectedSkillData)(datum)}</div>
                                                 ))}
                                             </>
                                         )

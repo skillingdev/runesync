@@ -16,7 +16,7 @@ import {
     Button,
 } from "@nextui-org/react"
 import { useCallback, useMemo, useState } from "react"
-import { UserEvent, UserEventType, userEventTypes } from "~/types"
+import { UserEvent, userEventTypes } from "~/types"
 import { FaChevronDown, FaSearch } from 'react-icons/fa'
 
 const columns = [{ name: "Timestamp", uid: "timestamp" }, { name: "Event Type", uid: "type" }, { name: "Event Details", uid: "details" }]
@@ -175,8 +175,11 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
 
     return (
         <Table
-            aria-label="Example table with custom cells, pagination and sorting"
+            aria-label="Table containing all event data for user"
             isHeaderSticky
+            radius="none"
+            fullWidth
+            removeWrapper
             isStriped
             topContent={topContent}
             topContentPlacement="outside"
