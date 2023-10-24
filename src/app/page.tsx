@@ -1,12 +1,13 @@
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/button"
+import { Suspense } from "react"
+import { TopPlayers } from "./TopPlayers"
 
 export default function Page() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <Button color="primary">Press me to get started!</Button>
-    </div>
+    <>
+      <Suspense>
+        <TopPlayers />
+      </Suspense >
+    </>
   )
 }

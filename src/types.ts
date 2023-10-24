@@ -193,3 +193,10 @@ export type LootEntryEvent = Omit<LootEntry, "accountHash">
 
 export type UserEvent
     = { type: UserEventType, event: LootEntryEvent }
+
+export const TopPlayerEntrySchema = z.object({
+    displayName: z.string(),
+    leaguePoints: z.number(),
+})
+
+export type TopPlayerEntry = z.infer<typeof TopPlayerEntrySchema>
