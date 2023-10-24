@@ -16,31 +16,34 @@ const columns = [
 
 export function TopPlayersTable({ topPlayers }: { topPlayers: TopPlayerEntry[] }) {
     return (
-        <Table
-            aria-label="Table containing all top player info"
-            radius="none"
-            fullWidth
-            removeWrapper
-            isStriped
-        >
-            <TableHeader columns={columns}>
-                {(column) => (
-                    <TableColumn
-                        key={column.key}
-                        align={"start"}
-                        allowsSorting={false}
-                    >
-                        {column.name}
-                    </TableColumn>
-                )}
-            </TableHeader>
-            <TableBody emptyContent={"No players found. Is the league started yet?"} items={topPlayers}>
-                {(item) => (
-                    <TableRow key={item.displayName}>
-                        {(columnKey) => columnKey == "displayName" ? <TableCell><Link href={`/users/${getKeyValue(item, columnKey)}`}>{getKeyValue(item, columnKey)}</Link></TableCell> : <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
+        <>
+            <div className="font-bold mb-3">Top Players</div>
+            <Table
+                aria-label="Table containing all top player info"
+                radius="none"
+                fullWidth
+                removeWrapper
+                isStriped
+            >
+                <TableHeader columns={columns}>
+                    {(column) => (
+                        <TableColumn
+                            key={column.key}
+                            align={"start"}
+                            allowsSorting={false}
+                        >
+                            {column.name}
+                        </TableColumn>
+                    )}
+                </TableHeader>
+                <TableBody emptyContent={"No players found. Is the league started yet?"} items={topPlayers}>
+                    {(item) => (
+                        <TableRow key={item.displayName}>
+                            {(columnKey) => columnKey == "displayName" ? <TableCell><Link href={`/users/${getKeyValue(item, columnKey)}`}>{getKeyValue(item, columnKey)}</Link></TableCell> : <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
+        </>
     )
 }
