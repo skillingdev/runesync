@@ -11,7 +11,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className="light">
-            <body className=" min-h-screen overflow-auto w-full">
+            <body className=" min-h-screen overflow-auto w-full ">
                 <Providers>
                     <Header />
                     <div className="flex">

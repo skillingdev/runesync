@@ -253,7 +253,8 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                         <Dropdown shouldBlockScroll={false}>
                             <DropdownTrigger>
                                 <Button
-                                    variant="bordered"
+                                    variant="light"
+                                    radius='none'
                                     endContent={<FaChevronDown />}
                                 >
                                     Select Activities
@@ -261,7 +262,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                             </DropdownTrigger>
                             <DropdownMenu
                                 aria-label="Select skills"
-                                variant="flat"
+                                variant="light"
                                 closeOnSelect={false}
                                 disallowEmptySelection
                                 selectionMode="multiple"
@@ -277,7 +278,8 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                         <Dropdown shouldBlockScroll={false}>
                             <DropdownTrigger>
                                 <Button
-                                    variant="bordered"
+                                    radius='none'
+                                    variant="light"
                                     className="capitalize"
                                     endContent={<FaChevronDown />}
                                 >
@@ -286,7 +288,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                             </DropdownTrigger>
                             <DropdownMenu
                                 aria-label="Select skill data"
-                                variant="flat"
+                                variant="light"
                                 disallowEmptySelection
                                 selectionMode="single"
                                 selectedKeys={selectedActivitiesDataKeys}
@@ -344,7 +346,8 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                         <Dropdown shouldBlockScroll={false}>
                             <DropdownTrigger>
                                 <Button
-                                    variant="bordered"
+                                    radius='none'
+                                    variant="light"
                                     endContent={<FaChevronDown />}
                                 >
                                     Select Skills
@@ -352,7 +355,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                             </DropdownTrigger>
                             <DropdownMenu
                                 aria-label="Select skills"
-                                variant="flat"
+                                variant="light"
                                 closeOnSelect={false}
                                 disallowEmptySelection
                                 selectionMode="multiple"
@@ -368,7 +371,8 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                         <Dropdown shouldBlockScroll={false}>
                             <DropdownTrigger>
                                 <Button
-                                    variant="bordered"
+                                    radius='none'
+                                    variant="light"
                                     className="capitalize"
                                     endContent={<FaChevronDown />}
                                 >
@@ -377,7 +381,7 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                             </DropdownTrigger>
                             <DropdownMenu
                                 aria-label="Select skill data"
-                                variant="flat"
+                                variant="light"
                                 disallowEmptySelection
                                 selectionMode="single"
                                 selectedKeys={selectedSkillDataKeys}

@@ -14,7 +14,6 @@ import {
     Dropdown,
     DropdownTrigger,
     Button,
-    Avatar
 } from "@nextui-org/react"
 import { useCallback, useMemo, useState } from "react"
 import { UserEvent, UserEventType, userEventTypes } from "~/types"
@@ -107,6 +106,7 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between gap-3 items-end">
                     <Input
+                        radius="none"
                         isClearable
                         className="w-full sm:max-w-[44%]"
                         placeholder="Search by event details..."
@@ -118,13 +118,14 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
                     <div className="flex gap-3">
                         <Dropdown>
                             <DropdownTrigger className="sm:flex">
-                                <Button endContent={<FaChevronDown className="text-small" />} variant="bordered">
+                                <Button endContent={<FaChevronDown className="text-small" />} variant="light" radius='none'>
                                     Event Type
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu
                                 disallowEmptySelection
                                 aria-label="Event Types"
+                                variant="light"
                                 closeOnSelect={false}
                                 selectedKeys={eventTypeFilter}
                                 selectionMode="multiple"
@@ -139,11 +140,12 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
                         </Dropdown>
                         <Dropdown>
                             <DropdownTrigger className="sm:flex">
-                                <Button endContent={<FaChevronDown className="text-small" />} variant="bordered">
+                                <Button endContent={<FaChevronDown className="text-small" />} variant="light" radius='none'>
                                     Columns
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu
+                                variant="light"
                                 disallowEmptySelection
                                 aria-label="Table Columns"
                                 closeOnSelect={false}

@@ -17,7 +17,7 @@ export function Header() {
             </NavbarContent>
 
             <NavbarContent justify="end">
-                <Chip color="secondary">Make sure to install the plugin!</Chip>
+                <Chip variant="bordered" color="default">Make sure to install the plugin!</Chip>
             </NavbarContent>
             <NavbarMenu>
                 <NavItems />
