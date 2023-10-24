@@ -56,7 +56,7 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
         }
 
         return filteredEvents.map((event, ix) => ({ ix, event }))
-    }, [events, filterValue, eventTypeFilter])
+    }, [events, filterValue, eventTypeFilter, hasSearchFilter])
 
     const renderCell = useCallback((event: UserEvent, columnKey: React.Key) => {
         switch (columnKey) {
@@ -79,7 +79,7 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
                     case 'Loot':
                         return (
                             <div className="flex items-center">
-                                <img className="h-8 w-8 mr-3" src={`https://static.runelite.net/cache/item/icon/${event.event.itemId}.png`} />
+                                <img alt={event.event.itemName} className="h-8 w-8 mr-3" src={`https://static.runelite.net/cache/item/icon/${event.event.itemId}.png`} />
                                 <span>{showEvent(event)}</span>
                             </div>
                         )
@@ -168,15 +168,13 @@ export default function EventsTimeline({ events }: { events: UserEvent[] }) {
         filterValue,
         eventTypeFilter,
         visibleColumns,
-        events.length,
         onSearchChange,
-        hasSearchFilter,
+        onClear,
     ])
 
     return (
         <Table
             aria-label="Table containing all event data for user"
-            isHeaderSticky
             radius="none"
             fullWidth
             removeWrapper
