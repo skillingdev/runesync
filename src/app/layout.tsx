@@ -10,6 +10,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className="light">
+            <head>
+                <title>RuneSync</title>
+                <link rel="icon" type="image/x-icon" href="/Rune_Sync_Very_Small.png" />
+            </head>
             <body className="min-h-screen overflow-y-auto overflow-x-hidden w-full">
                 <Providers>
                     <Header />
