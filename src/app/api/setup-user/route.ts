@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb'
 import { NextRequest, NextResponse } from 'next/server'
 import clientPromise from '~/mongodb'
-import { AccountEntry, UsernameEntry, ApiRequestError, AccountEntrySchema, DbError } from '~/types'
+import { AccountEntry, UsernameEntry, ApiRequestError, AccountEntrySchema, DbError, StatEntry } from '~/types'
 
 type ResponseData = {
     ok: boolean,
@@ -27,6 +27,7 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiRequestErr
 
                 const accounts: Collection<AccountEntry> = client.db("test").collection("accounts")
                 const usernames: Collection<UsernameEntry> = client.db("test").collection("usernames")
+                const stats: Collection<StatEntry> = client.db("test").collection("stats")
 
                 const accountQuery = { accountHash: account.accountHash }
                 const usernameQuery = { displayName: username.displayName }
@@ -38,7 +39,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiRequestErr
                     // Delete old usernames entry - it is no longer used by the account it was used by
                     await usernames.deleteOne({ displayName: old.displayName }, { session })
 
-                    // TODO: Handle migrating stats table
+                    // Update all matching stats table entries to new display name
+                    await stats.updateMany({ displayName: old.displayName }, { "$set": { displayName: account.displayName } }, { session })
                 }
             })
         })
