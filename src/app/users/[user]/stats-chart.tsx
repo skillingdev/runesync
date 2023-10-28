@@ -337,7 +337,9 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                             <>
                                                 <div className="mb-2">{datum.timestamp.toLocaleString()}</div>
                                                 {selectedActivities.map((output) => (
-                                                    <div key={output}><span style={{ color: colorScale?.(output) }}>{getActivityName(output)}</span>: {getActivityData(output, selectedActivitiesData)(datum) || "Unranked"}</div>
+                                                    <div key={output}>
+                                                        <span style={{ color: colorScale?.(output) }}>{getActivityName(output)}</span>: {getActivityData(output, selectedActivitiesData)(datum)?.toLocaleString() || "Unranked"}
+                                                    </div>
                                                 ))}
                                             </>
                                         )
@@ -431,7 +433,9 @@ export function StatsChart({ statEntries }: { statEntries: StatEntry[] }) {
                                             <>
                                                 <div className="mb-2">{datum.timestamp.toLocaleString()}</div>
                                                 {selectedSkills.map((output) => (
-                                                    <div key={output}><span style={{ color: colorScale?.(output) }}>{getSkillName(output)}</span>: {getSkillData(output, selectedSkillData)(datum)}</div>
+                                                    <div key={output}>
+                                                        <span style={{ color: colorScale?.(output) }}>{getSkillName(output)}</span>: {getSkillData(output, selectedSkillData)(datum).toLocaleString()}
+                                                    </div>
                                                 ))}
                                             </>
                                         )
