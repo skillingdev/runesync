@@ -16,7 +16,7 @@ async function fetchLootTimeline(displayName: String): Promise<UserEvent[]> {
     const accountHash = matchingAccounts[0].accountHash
 
     const loots: Collection<LootEntry> = client.db("test").collection("loots")
-    const lootEntries: LootEntryEvent[] = await loots.find({ accountHash }, { sort: { timestamp: -1 }, projection: { _id: 0, accountHash: 0 }, limit: 1000 }).toArray()
+    const lootEntries: LootEntryEvent[] = await loots.find({ accountHash }, { sort: { timestamp: -1 }, projection: { _id: 0, accountHash: 0 }, limit: 100 }).toArray()
 
     return lootEntries.map((event) => ({ type: 'Loot', event }))
 }
