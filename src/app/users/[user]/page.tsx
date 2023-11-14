@@ -14,9 +14,12 @@ export default function Page({ params }: { params: { user: string } }) {
             <Suspense fallback={<StatsLoading />}>
                 <Stats user={user} />
             </Suspense>
-            <Suspense>
-                <LootTimeline user={user} />
-            </Suspense>
         </>
     )
 }
+
+/* 
+            <Suspense>
+                <LootTimeline user={user} />
+            </Suspense>
+*/

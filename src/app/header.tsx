@@ -12,10 +12,14 @@ export function Header() {
                     <Link className="font-bold" href="/">RuneSync</Link>
                 </NavbarBrand>
             </NavbarContent>
+        </Navbar>
+    )
+}
+
+/*
 
             <NavbarContent justify="end">
                 <Chip variant="bordered" color="default">Make sure to install the plugin!</Chip>
             </NavbarContent>
-        </Navbar>
-    )
-}
+
+ */
