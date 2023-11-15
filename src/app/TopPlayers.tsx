@@ -20,3 +20,5 @@ export async function TopPlayers() {
         <TopPlayersTable topPlayers={topPlayers} />
     )
 }
+
+export const dynamic = 'force-dynamic'
